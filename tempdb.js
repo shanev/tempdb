@@ -23,11 +23,19 @@ class TempDB {
       }
       const redisKey = `tempDB:${key}`;
       const redisValue = JSON.stringify(value);
-      client.set(redisKey, redisValue, 'EX', expires, (err, res) => {
-        if (err) { return reject(err); }
-        debug(`Saved ${redisKey}/${redisValue} in Redis`);
-        return resolve(res);
-      });
+      if (expires == null) {
+        client.set(redisKey, redisValue, (err, res) => {
+          if (err) { return reject(err); }
+          debug(`Saved ${redisKey}/${redisValue} in Redis.`);
+          return resolve(res);
+        });
+      } else {
+        client.set(redisKey, redisValue, 'EX', expires, (err, res) => {
+          if (err) { return reject(err); }
+          debug(`Saved ${redisKey}/${redisValue} in Redis. Expiring in ${expires} seconds.`);
+          return resolve(res);
+        });
+      }
     });
   }
 
