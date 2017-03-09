@@ -1,5 +1,11 @@
 # TempDB
 
+[![npm version](https://badge.fury.io/js/tempdb.svg)](https://badge.fury.io/js/tempdb)
+[![Build Status](https://travis-ci.org/shanev/tempdb.svg?branch=master)](https://travis-ci.org/shanev/tempdb)
+[![codecov](https://codecov.io/gh/shanev/tempdb/branch/master/graph/badge.svg)](https://codecov.io/gh/shanev/tempdb)
+[![codebeat badge](https://codebeat.co/badges/c614ab13-0067-4bec-b4af-7683d01d0434)](https://codebeat.co/projects/github-com-shanev-tempdb-master)
+[![Dependencies](https://david-dm.org/shanev/tempdb.svg)](https://david-dm.org/shanev/tempdb)
+
 TempDB is Redis-backed temporary key-value store for Node.js. It's useful for storing temporary data such as login codes and temporary passwords.
 
 ## Installation
