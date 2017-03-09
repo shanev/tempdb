@@ -8,40 +8,37 @@ client.on('error', (err) => {
   debug(`Error: ${err}`);
 });
 
-// one hour (in seconds)
-const EXPIRE_TIME = 3600;
-
 /**
  * Saves a key/value pair in Redis.
  */
-class tempDB {
+class TempDB {
+  // persist key/value pair in Redis
+  static add(key, value, expires) {
+    return new Promise((resolve, reject) => {
+      if (key == null) {
+        throw new Error('A key is required.');
+      }
+      if (value == null) {
+        throw new Error('A value is required.');
+      }
+      const redisKey = `tempDB:${key}`;
+      const redisValue = JSON.stringify(value);
+      client.set(redisKey, redisValue, 'EX', expires, (err, res) => {
+        if (err) { return reject(err); }
+        debug(`Saved ${redisKey}/${redisValue} in Redis`);
+        return resolve(res);
+      });     
+    });
+  }
+
   // TempDB.find() gets the value associated with the key
   static find(key) {
     return new Promise((resolve, reject) => {
       const key = `tempDB:${key}`;
       client.get(key, (err, value) => {
-        if (err) return reject(err);
+        if (err) { return reject(err) }
         client.del(key);
         return resolve(value);
-      });
-    });
-  }
-
-  constructor(key, value) {
-    if ((key == null) || (value == null)) {
-      throw new Error('A required argument in missing.');
-    }
-    this.value = value;
-    this.key = `tempDB:${key}`;
-  }
-
-  // save() persists the key/value pair
-  save() {
-    return new Promise((resolve, reject) => {
-      client.set(this.key, this.value, 'EX', EXPIRE_TIME, (err, res) => {
-        if (err) return reject(err);
-        debug(`[TempDB] Saved ${this.key}/${this.value} in Redis`);
-        return resolve(res);
       });
     });
   }
