@@ -2,9 +2,19 @@
   "name": "tempdb",
   "version": "0.0.1",
   "description": "Key-value store for temporary items",
+  "keywords": [
+    "redis",
+    "javascript",
+    "nodejs"
+  ],
   "main": "tempdb.js",
   "author": "Shane Vitarana <shanev@gmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/shanev/tempdb",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shanev/tempdb.git"
+  },
   "scripts": {
     "test": "istanbul cover node_modules/mocha/bin/_mocha && codecov"
   },
