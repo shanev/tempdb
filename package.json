@@ -1,0 +1,15 @@
+{
+  "name": "temp-db",
+  "version": "0.0.1",
+  "description": "Key-value store for temporary items",
+  "main": "tempdb.js",
+  "author": "Shane Vitarana <shanev@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^2.6.1",
+    "redis": "^2.6.5"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0"
+  }
+}
