@@ -1,4 +1,4 @@
-# Temp DB
+# TempDB
 
 TempDB is Redis-backed temporary key-value store for Node.js. It's useful for storing temporary data such as login codes and temporary passwords.
 
@@ -7,13 +7,13 @@ TempDB is Redis-backed temporary key-value store for Node.js. It's useful for st
 If you are using yarn:
 
 ```sh
-yarn add temp-db
+yarn add tempdb
 ```
 
 or npm:
 
 ```sh
-npm install temp-db --save
+npm install tempdb --save
 ```
 
 Run Redis server:
@@ -41,10 +41,10 @@ const value = await db.find(key);
 
 ## Debugging
 
-Add `DEBUG=temp-db` to the node start script in `package.json` to see debug output. i.e:
+Add `DEBUG=tempdb` to the node start script in `package.json` to see debug output. i.e:
 
 ```sh
-DEBUG=temp-db node server.js
+DEBUG=tempdb node server.js
 ```
 
 ## Tests

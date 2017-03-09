@@ -1,5 +1,5 @@
 {
-  "name": "temp-db",
+  "name": "tempdb",
   "version": "0.0.1",
   "description": "Key-value store for temporary items",
   "main": "tempdb.js",

@@ -1,4 +1,4 @@
-const debug = require('debug')('temp-db');
+const debug = require('debug')('tempdb');
 
 const redis = require('redis');
 
