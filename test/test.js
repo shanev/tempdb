@@ -22,7 +22,6 @@ describe('TempDB', () => {
   describe('#add()', () => {
     it('should save a key/value pair', (done) => {
       TempDB.add(key, value, expires).then((res) => {
-        console.log(res);
         assert(res);
         done();
       });

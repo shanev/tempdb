@@ -27,18 +27,18 @@ class TempDB {
         if (err) { return reject(err); }
         debug(`Saved ${redisKey}/${redisValue} in Redis`);
         return resolve(res);
-      });     
+      });
     });
   }
 
   // TempDB.find() gets the value associated with the key
   static find(key) {
     return new Promise((resolve, reject) => {
-      const key = `tempDB:${key}`;
-      client.get(key, (err, value) => {
-        if (err) { return reject(err) }
+      const redisKey = `tempDB:${key}`;
+      client.get(redisKey, (err, value) => {
+        if (err) { return reject(err); }
         client.del(key);
-        return resolve(value);
+        return resolve(JSON.parse(value));
       });
     });
   }
