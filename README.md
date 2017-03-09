@@ -24,17 +24,17 @@ Check out [Redis quickstart](https://redis.io/topics/quickstart) to install.
 
 ## Usage
 
-Initialize TempDB
+Initialize TempDB:
 ```js
 const db = new TempDB();
 ```
 
-Add a key/value pair
+Add a key/value pair. Value is anything that can be stored as JSON. Expires (in seconds) is optional.
 ```js
 db.add(key, value, expires);
 ```
 
-Find by key
+Find by key:
 ```js
 const value = await db.find(key);
 ```
