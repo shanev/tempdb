@@ -29,11 +29,20 @@ describe('TempDB', () => {
   });
 
   describe('#find()', () => {
-    it('should find() a value by key', (done) => {
+    it('should find a value by key', (done) => {
       TempDB.find(key).then((res) => {
         assert.equal(value, res);
         done();
       });
+    });
+
+    it('should not find an expired value by key', (done) => {
+      setTimeout(() => {
+        TempDB.find(key).then((res) => {
+          assert.equal(null, res);
+          done();
+        });
+      }, 1500);
     });
   });
 });
