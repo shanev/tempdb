@@ -51,7 +51,7 @@ TempDB.add('key', value, EXPIRES);
 
 Find by key:
 ```js
-const value = await TempDB.find(key);
+const value = await TempDB.find('key');
 ```
 
 ## Debugging
