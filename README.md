@@ -54,6 +54,13 @@ Find by key:
 const value = await TempDB.find('key');
 ```
 
+How to stub out TempDB in your tests:
+```js
+const sinon = require('sinon');
+
+sinon.stub(TempDB, 'find').returns(Promise.resolve(value));
+```
+
 ## Debugging
 
 Add `DEBUG=tempdb` to the node start script in `package.json` to see debug output. i.e:
