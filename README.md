@@ -6,7 +6,7 @@
 [![codebeat badge](https://codebeat.co/badges/c614ab13-0067-4bec-b4af-7683d01d0434)](https://codebeat.co/projects/github-com-shanev-tempdb-master)
 [![Dependencies](https://david-dm.org/shanev/tempdb.svg)](https://david-dm.org/shanev/tempdb)
 
-TempDB is Redis-backed temporary key-value store for Node.js. It's useful for storing temporary data such as login codes, authentication tokens, and temporary passwords.
+TempDB is Redis-backed temporary key-value store for Node. It's useful for storing temporary data such as login codes, authentication tokens, and temporary passwords.
 
 ## Installation
 
