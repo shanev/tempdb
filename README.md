@@ -37,7 +37,16 @@ const TempDB = require('tempdb');
 
 Add a key/value pair. Value is anything that can be stored as JSON. Expires (in seconds) is optional.
 ```js
-TempDB.add(key, value, expires);
+TempDB.add('key', value, expires);
+```
+
+Usage with Moment:
+```js
+const moment = require('moment');
+
+const EXPIRES = moment.duration(1, 'hour').asSeconds();
+
+TempDB.add('key', value, EXPIRES);
 ```
 
 Find by key:
