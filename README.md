@@ -32,6 +32,8 @@ Check out [Redis quickstart](https://redis.io/topics/quickstart) to install.
 
 Initialize TempDB:
 ```js
+const TempDB = require('tempdb');
+
 const db = new TempDB();
 ```
 
