@@ -16,7 +16,7 @@
     "url": "https://github.com/shanev/tempdb.git"
   },
   "scripts": {
-    "test": "istanbul cover node_modules/mocha/bin/_mocha && codecov"
+    "test": "DEBUG=tempdb istanbul cover node_modules/mocha/bin/_mocha && codecov"
   },
   "dependencies": {
     "debug": "^2.6.1",

@@ -3,15 +3,15 @@ const debug = require('debug')('tempdb');
 const redis = require('redis');
 
 /**
- * Saves a key/value pair in Redis, optionally passing in a Redis config.
+ * Saves an expiring (or non-expiring) key/value pair in Redis.
  */
 class TempDB {
+  /**
+   * Initializes a new TempDB object.
+   * Optionally takes in a Redis config (https://github.com/NodeRedis/node_redis#rediscreateclient).
+   */
   constructor(config = null) {
     this.client = (config != null) ? redis.createClient(config) : redis.createClient();
-
-    this.client.on('error', (err) => {
-      debug(`Error: ${err}`);
-    });
   }
 
   // add() persists a key/value pair with an optional expiration time
@@ -47,7 +47,9 @@ class TempDB {
       const redisKey = `tempDB:${key}`;
       this.client.get(redisKey, (err, value) => {
         if (err) { reject(err); }
-        this.client.del(key);
+        this.client.del(key, (error) => {
+          if (error) { reject(error); }
+        });
         resolve(JSON.parse(value));
       });
     });

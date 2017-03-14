@@ -2,22 +2,31 @@ const assert = require('assert');
 
 const redis = require('redis');
 
-const client = redis.createClient();
-
-client.on('error', (err) => {
-  console.log(`Error: ${err}`);
-});
-
 const TempDB = require('../tempdb');
 
 describe('TempDB', () => {
   const key = 'key';
   const value = 'value';
   const expires = 1; // one second
-  const tempDB = new TempDB();
+  let tempDB = null;
 
   before(() => {
+    const client = redis.createClient();
     client.flushdb();
+  });
+
+  describe('constructor()', () => {
+    it('should connect given a config', (done) => {
+      tempDB = new TempDB('redis://localhost:6379');
+      assert(tempDB);
+      done();
+    });
+
+    it('should connect without a config', (done) => {
+      tempDB = new TempDB();
+      assert(tempDB);
+      done();
+    });
   });
 
   describe('#add()', () => {
