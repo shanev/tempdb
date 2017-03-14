@@ -14,6 +14,7 @@ describe('TempDB', () => {
   const key = 'key';
   const value = 'value';
   const expires = 1; // one second
+  const tempDB = new TempDB();
 
   before(() => {
     client.flushdb();
@@ -21,14 +22,14 @@ describe('TempDB', () => {
 
   describe('#add()', () => {
     it('should save a key/value pair', (done) => {
-      TempDB.add(key, value).then((res) => {
+      tempDB.add(key, value).then((res) => {
         assert(res);
         done();
       });
     });
 
     it('should save an expiring key/value pair', (done) => {
-      TempDB.add(key, value, expires).then((res) => {
+      tempDB.add(key, value, expires).then((res) => {
         assert(res);
         done();
       });
@@ -37,7 +38,7 @@ describe('TempDB', () => {
 
   describe('#find()', () => {
     it('should find a value by key', (done) => {
-      TempDB.find(key).then((res) => {
+      tempDB.find(key).then((res) => {
         assert.equal(value, res);
         done();
       });
@@ -45,7 +46,7 @@ describe('TempDB', () => {
 
     it('should not find an expired value by key', (done) => {
       setTimeout(() => {
-        TempDB.find(key).then((res) => {
+        tempDB.find(key).then((res) => {
           assert.equal(null, res);
           done();
         });

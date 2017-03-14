@@ -3,7 +3,7 @@ const debug = require('debug')('tempdb');
 const redis = require('redis');
 
 /**
- * Saves a key/value pair in Redis.
+ * Saves a key/value pair in Redis, optionally passing in a Redis config.
  */
 class TempDB {
   constructor(config = null) {
@@ -14,8 +14,8 @@ class TempDB {
     });
   }
 
-  // persist key/value pair in Redis
-  static add(key, value, expires) {
+  // add() persists a key/value pair with an optional expiration time
+  add(key, value, expires) {
     return new Promise((resolve, reject) => {
       if (key == null) {
         throw new Error('A key is required.');
@@ -41,8 +41,8 @@ class TempDB {
     });
   }
 
-  // TempDB.find() gets the value associated with the key
-  static find(key) {
+  // find() gets the value associated with the key
+  find(key) {
     return new Promise((resolve, reject) => {
       const redisKey = `tempDB:${key}`;
       this.client.get(redisKey, (err, value) => {
