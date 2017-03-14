@@ -15,7 +15,7 @@ class TempDB {
   }
 
   // add() persists a key/value pair with an optional expiration time
-  add(key, value, expires) {
+  add(key = null, value = null, expires = null) {
     return new Promise((resolve, reject) => {
       if (key == null) {
         throw new Error('A key is required.');
