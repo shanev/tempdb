@@ -2,16 +2,18 @@ const debug = require('debug')('tempdb');
 
 const redis = require('redis');
 
-const client = redis.createClient();
-
-client.on('error', (err) => {
-  debug(`Error: ${err}`);
-});
-
 /**
  * Saves a key/value pair in Redis.
  */
 class TempDB {
+  constructor(config = null) {
+    this.client = (config != null) ? redis.createClient(config) : redis.createClient();
+
+    this.client.on('error', (err) => {
+      debug(`Error: ${err}`);
+    });
+  }
+
   // persist key/value pair in Redis
   static add(key, value, expires) {
     return new Promise((resolve, reject) => {
@@ -24,16 +26,16 @@ class TempDB {
       const redisKey = `tempDB:${key}`;
       const redisValue = JSON.stringify(value);
       if (expires == null) {
-        client.set(redisKey, redisValue, (err, res) => {
-          if (err) { return reject(err); }
+        this.client.set(redisKey, redisValue, (err, res) => {
+          if (err) { reject(err); }
           debug(`Saved ${redisKey}/${redisValue} in Redis.`);
-          return resolve(res);
+          resolve(res);
         });
       } else {
-        client.set(redisKey, redisValue, 'EX', expires, (err, res) => {
-          if (err) { return reject(err); }
+        this.client.set(redisKey, redisValue, 'EX', expires, (err, res) => {
+          if (err) { reject(err); }
           debug(`Saved ${redisKey}/${redisValue} in Redis. Expiring in ${expires} seconds.`);
-          return resolve(res);
+          resolve(res);
         });
       }
     });
@@ -43,10 +45,10 @@ class TempDB {
   static find(key) {
     return new Promise((resolve, reject) => {
       const redisKey = `tempDB:${key}`;
-      client.get(redisKey, (err, value) => {
-        if (err) { return reject(err); }
-        client.del(key);
-        return resolve(JSON.parse(value));
+      this.client.get(redisKey, (err, value) => {
+        if (err) { reject(err); }
+        this.client.del(key);
+        resolve(JSON.parse(value));
       });
     });
   }
