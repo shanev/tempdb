@@ -35,9 +35,19 @@ Require TempDB:
 const TempDB = require('tempdb');
 ```
 
+Initialize TempDB, connecting to a local Redis server running on the default port:
+```js
+const tempDB = new TempDB();
+```
+
+Optionally pass in a [Redis configuration](https://github.com/NodeRedis/node_redis#rediscreateclient) to connect to a remote server.
+```js
+const tempDB = new TempDB(REDIS_CLOUD_URL);
+```
+
 Add a key/value pair. Value is anything that can be stored as JSON. Expires (in seconds) is optional.
 ```js
-TempDB.add('key', value, expires);
+tempDB.add('key', value, expires);
 ```
 
 Usage with Moment:
@@ -46,19 +56,12 @@ const moment = require('moment');
 
 const EXPIRES = moment.duration(1, 'hour').asSeconds();
 
-TempDB.add('key', value, EXPIRES);
+tempDB.add('key', value, EXPIRES);
 ```
 
 Find by key:
 ```js
-const value = await TempDB.find('key');
-```
-
-How to stub out TempDB in your tests:
-```js
-const sinon = require('sinon');
-
-sinon.stub(TempDB, 'find').returns(Promise.resolve(value));
+const value = await tempDB.find('key');
 ```
 
 ## Debugging
