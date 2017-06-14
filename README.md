@@ -35,14 +35,9 @@ Require TempDB:
 const TempDB = require('tempdb');
 ```
 
-Initialize TempDB, connecting to a local Redis server running on the default port:
+Initialize TempDB, connecting to a [Redis client](https://github.com/NodeRedis/node_redis):
 ```js
-const tempDB = new TempDB();
-```
-
-Optionally pass in a [Redis configuration](https://github.com/NodeRedis/node_redis#rediscreateclient) to connect to a remote server.
-```js
-const tempDB = new TempDB(REDIS_CLOUD_URL);
+const tempDB = new TempDB(redisClient);
 ```
 
 Add a key/value pair. Value is anything that can be stored as JSON. Expires (in seconds) is optional.

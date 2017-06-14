@@ -1,8 +1,8 @@
 const assert = require('assert');
-
 const redis = require('redis');
-
 const TempDB = require('../tempdb');
+
+const client = redis.createClient();
 
 describe('TempDB', () => {
   const key = 'key';
@@ -11,19 +11,12 @@ describe('TempDB', () => {
   let tempDB = null;
 
   before(() => {
-    const client = redis.createClient();
     client.flushdb();
   });
 
   describe('constructor()', () => {
-    it('should connect given a config', (done) => {
-      tempDB = new TempDB('redis://localhost:6379');
-      assert(tempDB);
-      done();
-    });
-
-    it('should connect without a config', (done) => {
-      tempDB = new TempDB();
+    it('should connect to redis', (done) => {
+      tempDB = new TempDB(client);
       assert(tempDB);
       done();
     });
