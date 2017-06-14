@@ -79,6 +79,10 @@ yarn install # or npm install
 npm test
 ```
 
+## Ports to other languages
+
+* Go: [https://github.com/rafaeljesus/tempdb](https://github.com/rafaeljesus/tempdb)
+
 ## Author
 
 Shane Vitarana :: [http://shanev.me](http://shanev.me) :: [@shanev](https://twitter.com/shanev)
