@@ -55,11 +55,6 @@ const value = await tempDB.findAndDelete('key');
 
 ## Debugging
 
-Add `DEBUG=tempdb` to the node start script in `package.json` to see debug output. i.e:
-```sh
-DEBUG=tempdb node server.js
-```
-
 ## Tests
 
 ```sh
