@@ -10,19 +10,18 @@ TempDB is Redis-backed temporary key-value store for Node. It's useful for stori
 
 ## Installation
 
-If you are using yarn:
-
 ```sh
-yarn add tempdb
-```
-
-or npm:
-
-```sh
-npm install tempdb --save
+npm install tempdb
 ```
 
 Run Redis server:
+
+Check out [Redis quickstart](https://redis.io/topics/quickstart) to install for your platform, or use one of the many cloud providers.
+
+Depending on your Redis provider, you may need to enable keyspace events for ephemeral keys to work.
+
+A convenience script is provided for macOS default Homebrew Redis installs:
+
 ```sh
 redis-server
 ```
@@ -40,18 +39,9 @@ Initialize TempDB, connecting to a [Redis client](https://github.com/NodeRedis/n
 const tempDB = new TempDB(redisClient);
 ```
 
-Add a key/value pair. Value is anything that can be stored as JSON. Expires (in seconds) is optional.
+Add a key/value pair. Value is anything that can be serialized to JSON. Expires (in seconds) is optional.
 ```js
 tempDB.add('key', value, expires);
-```
-
-Usage with Moment:
-```js
-const moment = require('moment');
-
-const EXPIRES = moment.duration(1, 'hour').asSeconds();
-
-tempDB.add('key', value, EXPIRES);
 ```
 
 Find by key:
@@ -62,7 +52,6 @@ const value = await tempDB.find('key');
 ## Debugging
 
 Add `DEBUG=tempdb` to the node start script in `package.json` to see debug output. i.e:
-
 ```sh
 DEBUG=tempdb node server.js
 ```
@@ -70,14 +59,10 @@ DEBUG=tempdb node server.js
 ## Tests
 
 ```sh
-yarn install # or npm install
+npm install
 npm test
 ```
 
 ## Ports to other languages
 
 * Go: [https://github.com/rafaeljesus/tempdb](https://github.com/rafaeljesus/tempdb)
-
-## Author
-
-Shane Vitarana :: [http://shanev.me](http://shanev.me) :: [@shanev](https://twitter.com/shanev)
