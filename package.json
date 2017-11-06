@@ -16,6 +16,7 @@
     "url": "https://github.com/shanev/tempdb.git"
   },
   "scripts": {
+    "redis": "redis-server /usr/local/etc/redis.conf &",
     "test": "DEBUG=tempdb istanbul cover node_modules/mocha/bin/_mocha && codecov"
   },
   "dependencies": {

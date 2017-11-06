@@ -14,7 +14,7 @@ TempDB is Redis-backed temporary key-value store for Node. It's useful for stori
 npm install tempdb
 ```
 
-Run Redis server:
+### Run Redis server
 
 Check out [Redis quickstart](https://redis.io/topics/quickstart) to install for your platform, or use one of the many cloud providers.
 
@@ -23,9 +23,8 @@ Depending on your Redis provider, you may need to enable keyspace events for eph
 A convenience script is provided for macOS default Homebrew Redis installs:
 
 ```sh
-redis-server
+npm run redis
 ```
-Check out [Redis quickstart](https://redis.io/topics/quickstart) to install.
 
 ## Usage
 
