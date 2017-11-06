@@ -42,6 +42,16 @@ describe('TempDB', async () => {
       });
     });
 
+    it('should find a value by key and delete it', (done) => {
+      tempDB.findAndDelete(key).then((res) => {
+        assert.equal(value, res);
+        tempDB.find(key).then((res2) => {
+          assert.equal(null, res2);
+          done();
+        });
+      });
+    });
+
     it('should not find an expired value by key', (done) => {
       setTimeout(() => {
         tempDB.find(key).then((res) => {

@@ -34,6 +34,13 @@ class TempDB {
   async find(key) {
     const redisKey = `tempDB:${key}`;
     const value = await this.get(redisKey);
+    return JSON.parse(value);
+  }
+
+  // findAndDelete() gets the value associated with the key and deletes it
+  async findAndDelete(key) {
+    const redisKey = `tempDB:${key}`;
+    const value = await this.get(redisKey);
     await this.del(redisKey);
     return JSON.parse(value);
   }

@@ -48,6 +48,11 @@ Find by key:
 const value = await tempDB.find('key');
 ```
 
+Find and delete by key:
+```js
+const value = await tempDB.findAndDelete('key');
+```
+
 ## Debugging
 
 Add `DEBUG=tempdb` to the node start script in `package.json` to see debug output. i.e:
