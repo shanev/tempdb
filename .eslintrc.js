@@ -5,6 +5,9 @@ module.exports = {
     "es6": true,
     "mocha": true
   },
+  "parserOptions": {
+    "ecmaVersion": 2017,
+  },
   "rules": {
     "no-param-reassign": [2, { "props": false }]
   },

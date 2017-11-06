@@ -16,19 +16,18 @@
     "url": "https://github.com/shanev/tempdb.git"
   },
   "scripts": {
-    "redis": "redis-server /usr/local/etc/redis.conf &",
-    "test": "DEBUG=tempdb istanbul cover node_modules/mocha/bin/_mocha && codecov"
+    "redis": "redis-server /usr/local/etc/redis.conf --notify-keyspace-events Ex &",
+    "test": "node_modules/mocha/bin/_mocha && codecov"
   },
   "dependencies": {
-    "debug": "^2.6.1",
-    "redis": "^2.6.5"
+    "redis": "^2.8.0"
   },
   "devDependencies": {
     "codecov": "^1.0.1",
-    "eslint": "^3.17.1",
-    "eslint-config-airbnb-base": "^11.1.1",
-    "eslint-plugin-import": "^2.2.0",
-    "istanbul": "^0.4.5",
-    "mocha": "^3.2.0"
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.3.2",
+    "eslint-plugin-import": "^2.8.0",
+    "nyc": "*",
+    "mocha": "^3.5.3"
   }
 }

@@ -1,4 +1,4 @@
-const debug = require('debug')('tempdb');
+const { promisify } = require('util');
 
 /**
  * Saves an expiring (or non-expiring) key/value pair in Redis.
@@ -9,48 +9,33 @@ class TempDB {
    * Takes in a Redis client (https://github.com/NodeRedis/node_redis).
    */
   constructor(redis) {
-    this.client = redis;
+    this.del = promisify(redis.del).bind(redis);
+    this.get = promisify(redis.get).bind(redis);
+    this.set = promisify(redis.set).bind(redis);
   }
 
-  // add() persists a key/value pair with an optional expiration time
-  add(key = null, value = null, expires = null) {
-    return new Promise((resolve, reject) => {
-      if (key == null) {
-        throw new Error('A key is required.');
-      }
-      if (value == null) {
-        throw new Error('A value is required.');
-      }
-      const redisKey = `tempDB:${key}`;
-      const redisValue = JSON.stringify(value);
-      if (expires == null) {
-        this.client.set(redisKey, redisValue, (err, res) => {
-          if (err) { reject(err); }
-          debug(`Saved ${redisKey}/${redisValue} in Redis.`);
-          resolve(res);
-        });
-      } else {
-        this.client.set(redisKey, redisValue, 'EX', expires, (err, res) => {
-          if (err) { reject(err); }
-          debug(`Saved ${redisKey}/${redisValue} in Redis. Expiring in ${expires} seconds.`);
-          resolve(res);
-        });
-      }
-    });
+  // set() persists a key/value pair with an optional expiration time
+  async add(key = null, value = null, expires = null) {
+    if (key == null) {
+      throw new Error('A key is required.');
+    }
+    if (value == null) {
+      throw new Error('A value is required.');
+    }
+    const redisKey = `tempDB:${key}`;
+    const redisValue = JSON.stringify(value);
+    const res = (expires == null) ?
+      await this.set(redisKey, redisValue) :
+      await this.set(redisKey, redisValue, 'EX', expires);
+    return res;
   }
 
   // find() gets the value associated with the key
-  find(key) {
-    return new Promise((resolve, reject) => {
-      const redisKey = `tempDB:${key}`;
-      this.client.get(redisKey, (err, value) => {
-        if (err) { reject(err); }
-        this.client.del(key, (error) => {
-          if (error) { reject(error); }
-        });
-        resolve(JSON.parse(value));
-      });
-    });
+  async find(key) {
+    const redisKey = `tempDB:${key}`;
+    const value = await this.get(redisKey);
+    await this.del(redisKey);
+    return JSON.parse(value);
   }
 }
 

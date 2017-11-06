@@ -4,7 +4,7 @@ const TempDB = require('../tempdb');
 
 const client = redis.createClient();
 
-describe('TempDB', () => {
+describe('TempDB', async () => {
   const key = 'key';
   const value = 'value';
   const expires = 1; // one second
@@ -22,19 +22,15 @@ describe('TempDB', () => {
     });
   });
 
-  describe('#add()', () => {
-    it('should save a key/value pair', (done) => {
-      tempDB.add(key, value).then((res) => {
-        assert(res);
-        done();
-      });
+  describe('#add()', async () => {
+    it('should save a key/value pair', async () => {
+      const res = await tempDB.add(key, value);
+      assert(res);
     });
 
-    it('should save an expiring key/value pair', (done) => {
-      tempDB.add(key, value, expires).then((res) => {
-        assert(res);
-        done();
-      });
+    it('should save an expiring key/value pair', async () => {
+      const res = await tempDB.add(key, value, expires);
+      assert(res);
     });
   });
 
