@@ -16,9 +16,7 @@ npm install tempdb
 
 ### Run Redis server
 
-Check out [Redis quickstart](https://redis.io/topics/quickstart) to install for your platform, or use one of the many cloud providers.
-
-Depending on your Redis provider, you may need to enable keyspace events for ephemeral keys to work.
+Check out [Redis quickstart](https://redis.io/topics/quickstart) to install for your platform, or use one of the many cloud providers. Depending on your Redis provider, you may need to enable keyspace events for ephemeral keys to work.
 
 A convenience script is provided for macOS default Homebrew Redis installs:
 
